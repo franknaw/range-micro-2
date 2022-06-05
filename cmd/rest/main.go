@@ -19,6 +19,7 @@ func main() {
 	router := gin.Default()
 	router.GET("/range2/:range", getRange1)
 	router.GET("/range2/range1/:range", getRange2)
+	router.GET("/health", getHealth)
 	err := router.Run(":8080")
 	if err != nil {
 		return
@@ -48,4 +49,11 @@ func getRange2(c *gin.Context) {
 		log.Fatal(err)
 	}
 	c.String(http.StatusOK, string(responseData))
+}
+
+func getHealth(c *gin.Context) {
+	msg.Name = "Health Check"
+	msg.Message = "Health Check"
+	msg.Number = 123
+	c.JSON(http.StatusOK, msg)
 }
