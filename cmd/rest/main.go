@@ -20,6 +20,7 @@ func main() {
 	router.GET("/range2/:range", getRange1)
 	router.GET("/range2/range1/:range", getRange2)
 	router.GET("/health", getHealth)
+	router.GET("/", getHealth)
 	err := router.Run(":8080")
 	if err != nil {
 		return
@@ -34,7 +35,7 @@ func getRange1(c *gin.Context) {
 }
 
 func getRange2(c *gin.Context) {
-	range2 := "https://alb-153017194.us-east-1.elb.amazonaws.com/range1/"
+	range2 := "http://range1.range.local/range1/"
 	param := c.Params.ByName("range")
 	url := fmt.Sprintf("%s%s", range2, param)
 	response, err := http.Get(url)
